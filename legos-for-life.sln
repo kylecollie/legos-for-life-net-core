@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnoTech.LegosForLife.Domain.Test", "InnoTech.LegosForLife.Domain.Test\InnoTech.LegosForLife.Domain.Test.csproj", "{52C832DC-99F4-4A36-BC5C-DCA32DE779AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{3600EFF4-670E-4A39-AE7E-0752D40FBB36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3600EFF4-670E-4A39-AE7E-0752D40FBB36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3600EFF4-670E-4A39-AE7E-0752D40FBB36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52C832DC-99F4-4A36-BC5C-DCA32DE779AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52C832DC-99F4-4A36-BC5C-DCA32DE779AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52C832DC-99F4-4A36-BC5C-DCA32DE779AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52C832DC-99F4-4A36-BC5C-DCA32DE779AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{899CB34F-2A56-47AF-80F9-EB83F3316BB9} = {546B2B82-265A-45EE-A740-60AD92A58A06}
 		{C6A9E4D9-31F3-41A3-9A24-EF1291E77185} = {9A4D2006-6A28-4067-9316-996A5B55443A}
 		{3600EFF4-670E-4A39-AE7E-0752D40FBB36} = {E2FB2DA9-26A4-4FBC-9B2B-D004ED2C90B8}
+		{52C832DC-99F4-4A36-BC5C-DCA32DE779AC} = {E2FB2DA9-26A4-4FBC-9B2B-D004ED2C90B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D606B8B4-9112-4EE6-A16B-D2681EE9752D}
