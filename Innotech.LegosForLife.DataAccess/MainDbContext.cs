@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using InnoTech.LegosForLife.Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace InnoTech.LegosForLife.DataAccess
 {
@@ -8,5 +9,7 @@ namespace InnoTech.LegosForLife.DataAccess
         {
 
         }
+
+        public virtual DbSet<Product> Products { get; set; }
     }
 }
