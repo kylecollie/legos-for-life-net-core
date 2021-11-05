@@ -1,5 +1,4 @@
 ﻿using EntityFrameworkCore.Testing.Moq;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +19,6 @@ namespace InnoTech.LegosForLife.DataAccess.Test
 
         [Fact]
         public void DbContext_DbSets_MustHaveDbSetWithTypeProduct()
-        {
-
-        }
-    }
-
-    public class MainDbContext: DbContext
-    {
-        public MainDbContext(DbContextOptions<MainDbContext> options): base(options)
         {
 
         }
