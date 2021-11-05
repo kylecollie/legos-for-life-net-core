@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31727.386
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31825.309
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Onion-Core", "Onion-Core", "{8685C8D1-FE70-435E-B402-2FF547096F54}"
 EndProject
@@ -21,14 +21,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoTech.LegosForLife.Secur
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Onion-Core-Test", "Onion-Core-Test", "{E2FB2DA9-26A4-4FBC-9B2B-D004ED2C90B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnoTech.LegosForLife.Core.Test", "InnoTech.LegosForLife.Core.Test\InnoTech.LegosForLife.Core.Test.csproj", "{3600EFF4-670E-4A39-AE7E-0752D40FBB36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoTech.LegosForLife.Core.Test", "InnoTech.LegosForLife.Core.Test\InnoTech.LegosForLife.Core.Test.csproj", "{3600EFF4-670E-4A39-AE7E-0752D40FBB36}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56B5496B-27D8-48C8-9037-0D6DBD67297E}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnoTech.LegosForLife.Domain.Test", "InnoTech.LegosForLife.Domain.Test\InnoTech.LegosForLife.Domain.Test.csproj", "{52C832DC-99F4-4A36-BC5C-DCA32DE779AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InnoTech.LegosForLife.Domain.Test", "InnoTech.LegosForLife.Domain.Test\InnoTech.LegosForLife.Domain.Test.csproj", "{52C832DC-99F4-4A36-BC5C-DCA32DE779AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Onion-Infrastructure-Test", "Onion-Infrastructure-Test", "{BCBA3E72-9DE7-467C-A7D8-8C02176E5E6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnoTech.LegosForLife.DataAccess.Test", "InnoTech.LegosForLife.DataAccess.Test\InnoTech.LegosForLife.DataAccess.Test.csproj", "{D0C57908-E297-4227-82EF-01D6A3F305E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +68,10 @@ Global
 		{52C832DC-99F4-4A36-BC5C-DCA32DE779AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52C832DC-99F4-4A36-BC5C-DCA32DE779AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52C832DC-99F4-4A36-BC5C-DCA32DE779AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0C57908-E297-4227-82EF-01D6A3F305E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0C57908-E297-4227-82EF-01D6A3F305E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0C57908-E297-4227-82EF-01D6A3F305E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0C57908-E297-4227-82EF-01D6A3F305E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +84,7 @@ Global
 		{C6A9E4D9-31F3-41A3-9A24-EF1291E77185} = {9A4D2006-6A28-4067-9316-996A5B55443A}
 		{3600EFF4-670E-4A39-AE7E-0752D40FBB36} = {E2FB2DA9-26A4-4FBC-9B2B-D004ED2C90B8}
 		{52C832DC-99F4-4A36-BC5C-DCA32DE779AC} = {E2FB2DA9-26A4-4FBC-9B2B-D004ED2C90B8}
+		{D0C57908-E297-4227-82EF-01D6A3F305E5} = {BCBA3E72-9DE7-467C-A7D8-8C02176E5E6D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D606B8B4-9112-4EE6-A16B-D2681EE9752D}
