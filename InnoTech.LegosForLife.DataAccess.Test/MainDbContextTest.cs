@@ -1,11 +1,6 @@
 ﻿using EntityFrameworkCore.Testing.Moq;
-using InnoTech.LegosForLife.Core.Models;
+using Innotech.LegosForLife.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace InnoTech.LegosForLife.DataAccess.Test
@@ -20,10 +15,10 @@ namespace InnoTech.LegosForLife.DataAccess.Test
         }
 
         [Fact]
-        public void DbContext_DbSets_MustHaveDbSetWithTypeProduct()
+        public void DbContext_DbSets_MustHaveDbSetWithTypeProductEntity()
         {
             var mockedDbContext = Create.MockedDbContextFor<MainDbContext>();
-            Assert.True(mockedDbContext.Products is DbSet<Product>);
+            Assert.True(mockedDbContext.Products is DbSet<ProductEntity>);
         }
     }
 }
