@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using InnoTech.LegosForLife.Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace InnoTech.LegosForLife.WebApi.Controllers
 {
@@ -7,5 +8,9 @@ namespace InnoTech.LegosForLife.WebApi.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        public ActionResult<List<Product>> GetAll()
+        {
+            return null;
+        }
     }
 }

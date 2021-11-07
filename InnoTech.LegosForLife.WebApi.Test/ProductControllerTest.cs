@@ -1,5 +1,7 @@
-﻿using InnoTech.LegosForLife.WebApi.Controllers;
+﻿using InnoTech.LegosForLife.Core.Models;
+using InnoTech.LegosForLife.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Xunit;
@@ -39,6 +41,30 @@ namespace InnoTech.LegosForLife.WebApi.Test
             Assert.NotNull(attr);
             var routeAttr = attr as RouteAttribute;
             Assert.Equal("api/[controller]", routeAttr.Template);
+        }
+
+        [Fact]
+        public void ProductController_HasGetAllMethod()
+        {
+            var method = typeof(ProductController).GetMethods()
+                .FirstOrDefault(m => "GetAll".Equals(m.Name));
+            Assert.NotNull(method);
+        }
+
+        [Fact]
+        public void GetAllMethod_IsPublic()
+        {
+            var method = typeof(ProductController).GetMethods()
+                .FirstOrDefault(m => "GetAll".Equals(m.Name));
+            Assert.True(method.IsPublic);
+        }
+
+        [Fact]
+        public void GetAllMethod_ReturnsListOfProductsInActionResult()
+        {
+            var method = typeof(ProductController).GetMethods()
+                .FirstOrDefault(m => "GetAll".Equals(m.Name));
+            Assert.Equal(typeof(ActionResult<List<Product>>).FullName, method.ReturnType.FullName);
         }
     }
 }
