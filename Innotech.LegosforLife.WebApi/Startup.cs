@@ -1,3 +1,7 @@
+using Innotech.LegosForLife.DataAccess.Repositories;
+using InnoTech.LegosForLife.Core.IServices;
+using InnoTech.LegosForLife.Domain.IRepositories;
+using InnoTech.LegosForLife.Domain.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +28,12 @@ namespace InnoTech.LegosForLife.WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Innotech.LegosforLife.WebApi", Version = "v1" });
             });
+
+            //Setting up Dependency Injection
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
+
+            //Setting up DB Info
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
