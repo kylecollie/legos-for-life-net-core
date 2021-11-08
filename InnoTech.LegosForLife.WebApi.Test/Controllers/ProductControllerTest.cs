@@ -13,6 +13,7 @@ namespace InnoTech.LegosForLife.WebApi.Test.Controllers
 {
     public class ProductControllerTest
     {
+        #region Controller Intialization
         [Fact]
         public void ProductController_HasProductService_IsOfTypeControllerBase()
         {
@@ -60,6 +61,10 @@ namespace InnoTech.LegosForLife.WebApi.Test.Controllers
             Assert.Equal("api/[controller]", routeAttr.Template);
         }
 
+        #endregion
+
+        #region GetAll Method
+
         [Fact]
         public void ProductController_HasGetAllMethod()
         {
@@ -94,5 +99,27 @@ namespace InnoTech.LegosForLife.WebApi.Test.Controllers
                 .FirstOrDefault(ca => ca.AttributeType.Name == "HttpGetAttribute");
             Assert.NotNull(attr);
         }
+
+        [Fact]
+        public void GetAll_CallsServicesGetProducts_Once()
+        {
+            //Arrange
+            var mockService = new Mock<IProductService>();
+            var controller = new ProductController(mockService.Object);
+
+            //Act
+            controller.GetAll();
+
+            //Assert
+            mockService.Verify(s => s.GetProducts(), Times.Once());
+        }
+
+        #endregion
+
+        #region Post Method
+
+
+
+        #endregion
     }
 }

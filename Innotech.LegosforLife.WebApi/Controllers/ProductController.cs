@@ -11,18 +11,21 @@ namespace InnoTech.LegosForLife.WebApi.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        private readonly IProductService _productService;
+
         public ProductController(IProductService productService)
         {
             if (productService is null)
             {
                 throw new InvalidDataException("ProductService Cannot Be Null");
             }
+            _productService = productService;
         }
 
         [HttpGet]
         public ActionResult<List<Product>> GetAll()
         {
-            return null;
+            return _productService.GetProducts();
         }
     }
 }
