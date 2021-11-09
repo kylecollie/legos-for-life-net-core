@@ -1,3 +1,4 @@
+using Innotech.LegosForLife.DataAccess;
 using Innotech.LegosForLife.DataAccess.Repositories;
 using InnoTech.LegosForLife.Core.IServices;
 using InnoTech.LegosForLife.DataAccess;
@@ -51,8 +52,7 @@ namespace InnoTech.LegosForLife.WebApi
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Innotech.LegosforLife.WebApi v1"));
-                context.Database.EnsureCreated();
-                context.Database.EnsureCreated();
+                new DbSeeder(context).SeedDevelopment();
             }
 
             app.UseHttpsRedirection();
