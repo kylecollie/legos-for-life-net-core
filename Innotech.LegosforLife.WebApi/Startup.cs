@@ -1,9 +1,11 @@
 using Innotech.LegosForLife.DataAccess.Repositories;
 using InnoTech.LegosForLife.Core.IServices;
+using InnoTech.LegosForLife.DataAccess;
 using InnoTech.LegosForLife.Domain.IRepositories;
 using InnoTech.LegosForLife.Domain.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -34,6 +36,11 @@ namespace InnoTech.LegosForLife.WebApi
             services.AddScoped<IProductService, ProductService>();
 
             //Setting up DB Info
+            services.AddDbContext<MainDbContext>(
+                options =>
+                {
+                    options.UseSqlite("Data Source=main.db");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
