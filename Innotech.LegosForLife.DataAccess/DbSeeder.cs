@@ -1,10 +1,6 @@
 ﻿using Innotech.LegosForLife.DataAccess.Entities;
 using InnoTech.LegosForLife.DataAccess;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Innotech.LegosForLife.DataAccess
 {
@@ -30,6 +26,14 @@ namespace Innotech.LegosForLife.DataAccess
         public void SeedProduction()
         {
             _context.Database.EnsureCreated();
+            var cnt = _context.Products.Count();
+            if (cnt == 0)
+            {
+                _context.Products.Add(new ProductEntity { Name = "Lego1" });
+                _context.Products.Add(new ProductEntity { Name = "Lego2" });
+                _context.Products.Add(new ProductEntity { Name = "Lego3" });
+                _context.SaveChanges();
+            }
         }
     }
 }
