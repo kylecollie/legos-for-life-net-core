@@ -26,5 +26,10 @@ namespace Innotech.LegosForLife.DataAccess
             _context.Products.Add(new ProductEntity { Name = "Lego3" });
             _context.SaveChanges();
         }
+
+        public void SeedProduction()
+        {
+            _context.Database.EnsureCreated();
+        }
     }
 }
