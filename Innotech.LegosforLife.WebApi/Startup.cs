@@ -56,7 +56,8 @@ namespace InnoTech.LegosForLife.WebApi
                 options.AddPolicy("Prod-cors", policy =>
                 {
                     policy
-                    .WithOrigins("https://legosforlife-c3be9.firebaseapp.com")
+                    .WithOrigins("https://legosforlife-c3be9.firebaseapp.com",
+                        "https://legosforlife-c3be9.web.app")
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 });
