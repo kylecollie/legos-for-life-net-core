@@ -4,6 +4,7 @@ using InnoTech.LegosForLife.Core.IServices;
 using InnoTech.LegosForLife.DataAccess;
 using InnoTech.LegosForLife.Domain.IRepositories;
 using InnoTech.LegosForLife.Domain.Services;
+using InnoTech.LegosForLife.Security.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,8 @@ namespace InnoTech.LegosForLife.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var secret =Configuration["JwtConfig:Secret"];
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -35,6 +38,7 @@ namespace InnoTech.LegosForLife.WebApi
             //Setting up Dependency Injection
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ISecurityService, SecurityService>();
 
             //Setting up DB Info
             services.AddDbContext<MainDbContext>(
