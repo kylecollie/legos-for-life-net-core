@@ -4,6 +4,7 @@ using InnoTech.LegosForLife.Core.IServices;
 using InnoTech.LegosForLife.DataAccess;
 using InnoTech.LegosForLife.Domain.IRepositories;
 using InnoTech.LegosForLife.Domain.Services;
+using InnoTech.LegosForLife.Security;
 using InnoTech.LegosForLife.Security.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -94,6 +95,13 @@ namespace InnoTech.LegosForLife.WebApi
                     options.UseSqlite("Data Source=main.db");
                 });
 
+            //Setting up Security DB Context
+            services.AddDbContext<AuthDbContext>(
+                options =>
+                {
+                    options.UseSqlite("Data Source=auth.db");
+                });
+
             //Setting up CORS policy
             services.AddCors(options =>
             {
@@ -116,7 +124,10 @@ namespace InnoTech.LegosForLife.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MainDbContext context)
+        public void Configure(IApplicationBuilder app,
+                              IWebHostEnvironment env,
+                              MainDbContext context,
+                              AuthDbContext authCtx)
         {
             if (env.IsDevelopment())
             {
@@ -125,6 +136,8 @@ namespace InnoTech.LegosForLife.WebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Innotech.LegosforLife.WebApi v1"));
                 app.UseCors("Dev-cors");
                 new DbSeeder(context).SeedDevelopment();
+                authCtx.Database.EnsureDeleted();
+                authCtx.Database.EnsureCreated();
             }
             else
             {

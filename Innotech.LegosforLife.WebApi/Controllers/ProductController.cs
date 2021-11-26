@@ -1,5 +1,6 @@
 ﻿using InnoTech.LegosForLife.Core.IServices;
 using InnoTech.LegosForLife.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace InnoTech.LegosForLife.WebApi.Controllers
             _productService = productService;
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult<List<Product>> GetAll()
         {
