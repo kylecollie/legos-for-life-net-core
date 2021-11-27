@@ -1,4 +1,5 @@
-﻿using InnoTech.LegosForLife.Security.Models;
+﻿using InnoTech.LegosForLife.Security.IServices;
+using InnoTech.LegosForLife.Security.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -9,29 +10,40 @@ namespace InnoTech.LegosForLife.Security.Services
 {
     public class SecurityService : ISecurityService
     {
-        private readonly IConfiguration _configuration;
-        private readonly AuthDbContext _authDb;
+        private readonly IAuthUserService _authUserService;
 
-        public SecurityService(IConfiguration configuration, AuthDbContext authDb)
+        public SecurityService(
+            IConfiguration configuration,
+            IAuthUserService authUserService)
         {
-            _configuration = configuration;
-            _authDb = authDb;
+            _authUserService = authUserService;
+            Configuration = configuration;
         }
+
+        public IConfiguration Configuration { get; }
 
         public JwtToken GenerateJwtToken(string username, string password)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Secret"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
-                _configuration["Jwt:Audience"],
-                null,
-                expires: DateTime.UtcNow.AddMinutes(120),
-                signingCredentials: credentials);
+            var user = _authUserService.Login(username, password);
+            if (user != null)
+            {
+                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Secret"]));
+                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+                var token = new JwtSecurityToken(Configuration["Jwt:Issuer"],
+                    Configuration["Jwt:Audience"],
+                    null,
+                    expires: DateTime.UtcNow.AddMinutes(10),
+                    signingCredentials: credentials);
 
+                return new JwtToken
+                {
+                    Jwt = new JwtSecurityTokenHandler().WriteToken(token),
+                    Message = "Ok"
+                };
+            }
             return new JwtToken
             {
-                Jwt = new JwtSecurityTokenHandler().WriteToken(token),
-                Message = "Ok"
+                Message = "User or Password not correct"
             };
         }
     }

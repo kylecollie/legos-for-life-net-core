@@ -1,17 +1,12 @@
-﻿using InnoTech.LegosForLife.Security.Models;
+﻿using InnoTech.LegosForLife.Security.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InnoTech.LegosForLife.Security
 {
     public class AuthDbContext : DbContext
     {
-        public AuthDbContext(DbContextOptions<AuthDbContext> options): base(options) { }
+        public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options) { }
 
-        public DbSet<LoginUserEntity> LoginUsers { get; set; }
+        public DbSet<AuthUserEntity> AuthUsers { get; set; }
     }
 }

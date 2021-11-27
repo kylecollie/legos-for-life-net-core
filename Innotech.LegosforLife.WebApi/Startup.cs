@@ -5,6 +5,9 @@ using InnoTech.LegosForLife.DataAccess;
 using InnoTech.LegosForLife.Domain.IRepositories;
 using InnoTech.LegosForLife.Domain.Services;
 using InnoTech.LegosForLife.Security;
+using InnoTech.LegosForLife.Security.IRepositories;
+using InnoTech.LegosForLife.Security.IServices;
+using InnoTech.LegosForLife.Security.Repositories;
 using InnoTech.LegosForLife.Security.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -72,7 +75,7 @@ namespace InnoTech.LegosForLife.WebApi
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = 
+                        IssuerSigningKey =
                             new SymmetricSecurityKey(
                                 Encoding.UTF8.GetBytes(Configuration["Jwt:Secret"])),
                         ValidateIssuer = true,
@@ -86,7 +89,14 @@ namespace InnoTech.LegosForLife.WebApi
             //Setting up Dependency Injection
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IMainDbSeeder, MainDbSeeder>();
+
+            //Setting up DI for Security
+            services.AddScoped<IAuthUserRepository, AuthUserRepository>();
+            services.AddScoped<IAuthUserService, AuthUserService>();
             services.AddScoped<ISecurityService, SecurityService>();
+            services.AddScoped<IAuthDbSeeder, AuthDbSeeder>();
+
 
             //Setting up DB Info
             services.AddDbContext<MainDbContext>(
@@ -124,10 +134,11 @@ namespace InnoTech.LegosForLife.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app,
-                              IWebHostEnvironment env,
-                              MainDbContext context,
-                              AuthDbContext authCtx)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            IMainDbSeeder mainDbSeeder,
+            IAuthDbSeeder authDbSeeder)
         {
             if (env.IsDevelopment())
             {
@@ -135,14 +146,13 @@ namespace InnoTech.LegosForLife.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Innotech.LegosforLife.WebApi v1"));
                 app.UseCors("Dev-cors");
-                new DbSeeder(context).SeedDevelopment();
-                authCtx.Database.EnsureDeleted();
-                authCtx.Database.EnsureCreated();
+                mainDbSeeder.SeedDevelopment();
+                authDbSeeder.SeedDevelopment();
             }
             else
             {
                 app.UseCors("Prod-cors");
-                new DbSeeder(context).SeedProduction();
+                mainDbSeeder.SeedProduction();
             }
 
             app.UseHttpsRedirection();

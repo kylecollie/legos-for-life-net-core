@@ -1,4 +1,4 @@
-﻿using InnoTech.LegosForLife.Security.Services;
+﻿using InnoTech.LegosForLife.Security.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

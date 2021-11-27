@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace Innotech.LegosForLife.DataAccess
 {
-    public class DbSeeder
+    public class MainDbSeeder : IMainDbSeeder
     {
         private readonly MainDbContext _context;
 
-        public DbSeeder(MainDbContext context)
+        public MainDbSeeder(MainDbContext context)
         {
             _context = context;
         }
