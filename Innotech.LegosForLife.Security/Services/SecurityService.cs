@@ -1,9 +1,11 @@
 ﻿using InnoTech.LegosForLife.Security.IServices;
 using InnoTech.LegosForLife.Security.Models;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Authentication;
 using System.Text;
 
 namespace InnoTech.LegosForLife.Security.Services
@@ -24,8 +26,8 @@ namespace InnoTech.LegosForLife.Security.Services
 
         public JwtToken GenerateJwtToken(string username, string password)
         {
-            var user = _authUserService.Login(username, password);
-            if (user != null)
+            var user = _authUserService.GetUser(username);
+            if (Authenticate(user, password))
             {
                 var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Secret"]));
                 var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -41,10 +43,26 @@ namespace InnoTech.LegosForLife.Security.Services
                     Message = "Ok"
                 };
             }
-            return new JwtToken
-            {
-                Message = "User or Password not correct"
-            };
+            throw new AuthenticationException("User or Password not correct");
+        }
+
+        private bool Authenticate(AuthUser user, string plainTextPassword)
+        {
+            if (user == null || user.HashedPassword.Length <= 0 || user.Salt.Length <= 0) 
+                return false;
+
+            var hashedPasswordFromPlain = HashedPassword(plainTextPassword, user.Salt);
+            return user.HashedPassword.Equals(hashedPasswordFromPlain);
+        }
+
+        public string HashedPassword(string plainTextPassword, byte[] userSalt)
+        {
+            return Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                plainTextPassword,
+                userSalt,
+                KeyDerivationPrf.HMACSHA256,
+                100000,
+                256 / 8));
         }
     }
 }
