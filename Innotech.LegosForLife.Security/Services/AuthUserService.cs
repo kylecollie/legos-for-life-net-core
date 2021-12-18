@@ -13,6 +13,11 @@ namespace InnoTech.LegosForLife.Security.Services
             _authUserRepository = authUserRepository;
         }
 
+        public AuthUser Create(AuthUser authUser)
+        {
+            return _authUserRepository.Save(authUser);
+        }
+
         public AuthUser GetUser(string username)
         {
             return _authUserRepository.FindUser(username);

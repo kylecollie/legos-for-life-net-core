@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Authentication;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace InnoTech.LegosForLife.Security.Services
@@ -63,6 +64,36 @@ namespace InnoTech.LegosForLife.Security.Services
                 KeyDerivationPrf.HMACSHA256,
                 100000,
                 256 / 8));
+        }
+
+        public AuthUser GenerateNewAuthuser(string username)
+        {
+            // make default password
+            var defaultPassword = "123456";
+
+            // make new salt
+            var salt = new byte[128 / 8];
+            using (var rngCsp = new RNGCryptoServiceProvider())
+            {
+                rngCsp.GetNonZeroBytes(salt);
+            }
+
+            // generate hashed password
+            var hashedPassword = HashedPassword(defaultPassword, salt);
+
+            // create AuthUser with new hashed password and salt
+            // pass auth to AuthUser Service
+            AuthUser authUser = _authUserService.Create(new AuthUser
+            {
+                UserName = username,
+                HashedPassword = hashedPassword,
+                Salt = salt
+            });
+
+            // when saved, return new user
+            return authUser;
+
+            throw new NotImplementedException();
         }
     }
 }
