@@ -42,6 +42,38 @@ namespace InnoTech.LegosForLife.WebApi.Controllers
             }
 
         }
+
+        [Authorize]
+        [HttpPost(nameof(Create))]
+        public ActionResult<AuthUserDto> Create([FromBody] CreateUserAuthDto dto)
+        {
+            try
+            {
+                var authUser = _securityService.GenerateNewAuthuser(dto.Username);
+                return Ok(new AuthUserDto
+                {
+                    Id = authUser.Id,
+                    Username = authUser.UserName
+                });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return StatusCode(500, "Contact admin");
+            }
+
+        }
+    }
+
+    public class CreateUserAuthDto
+    {
+        public string Username { get; set; }
+    }
+
+    public class AuthUserDto
+    {
+        public int Id { get; set; }
+        public string Username { get; set; }
     }
 
     public class TokenDto

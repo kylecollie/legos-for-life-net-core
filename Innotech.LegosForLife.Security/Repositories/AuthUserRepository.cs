@@ -1,6 +1,7 @@
 ﻿using InnoTech.LegosForLife.Security.Entities;
 using InnoTech.LegosForLife.Security.IRepositories;
 using InnoTech.LegosForLife.Security.Models;
+using System;
 using System.Linq;
 using System.Text;
 
@@ -40,7 +41,7 @@ namespace InnoTech.LegosForLife.Security.Repositories
                 Id = entity.Id,
                 UserName = entity.Username,
                 HashedPassword = entity.HashedPassword,
-                Salt = Encoding.ASCII.GetBytes(entity.Salt)
+                Salt = Convert.FromBase64String(entity.Salt)
             };
         }
 
@@ -49,7 +50,7 @@ namespace InnoTech.LegosForLife.Security.Repositories
             var entity = _authDb.Add(new AuthUserEntity
             {
                 HashedPassword = authUser.HashedPassword,
-                Salt = Encoding.ASCII.GetString(authUser.Salt),
+                Salt = Convert.ToBase64String(authUser.Salt),
                 Username = authUser.UserName
             }).Entity;
             _authDb.SaveChanges();

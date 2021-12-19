@@ -70,13 +70,7 @@ namespace InnoTech.LegosForLife.Security.Services
         {
             // make default password
             var defaultPassword = "123456";
-
-            // make new salt
-            var salt = new byte[128 / 8];
-            using (var rngCsp = new RNGCryptoServiceProvider())
-            {
-                rngCsp.GetNonZeroBytes(salt);
-            }
+            byte[] salt = GenerateSalt();
 
             // generate hashed password
             var hashedPassword = HashedPassword(defaultPassword, salt);
@@ -94,6 +88,18 @@ namespace InnoTech.LegosForLife.Security.Services
             return authUser;
 
             throw new NotImplementedException();
+        }
+
+        public byte[] GenerateSalt()
+        {
+            // make new salt
+            var salt = new byte[128 / 8];
+            using (var rngCsp = new RNGCryptoServiceProvider())
+            {
+                rngCsp.GetNonZeroBytes(salt);
+            }
+
+            return salt;
         }
     }
 }

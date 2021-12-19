@@ -22,17 +22,7 @@ namespace InnoTech.LegosForLife.Security
             _authDbContext.Database.EnsureDeleted();
             _authDbContext.Database.EnsureCreated();
 
-            var salt = "123#!";
-
-            _authDbContext.AuthUsers.Add(new AuthUserEntity
-            {
-                Salt = salt,
-                HashedPassword = _securityService.HashedPassword(
-                    "123456", 
-                    Encoding.ASCII.GetBytes(salt)),
-                Username = "bud"
-            });
-            _authDbContext.SaveChanges();
+            _securityService.GenerateNewAuthuser("bud");
         }
     }
 }
